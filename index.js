@@ -102,11 +102,12 @@ function clearSequence() {
 }
 
 function doTheThing() {
-    let textInput = document.getElementById('textInput').value.trim();
+    let textInput = document.getElementById('textInput');
     let inputStyleBox = document.getElementById('inputStyleBox');
 
-    if (textInput === "") {
+    if (textInput.value.trim() === "") {
         inputStyleBox.style.border = "1px solid red";
+        textInput.focus();
         return;
     } else {
         inputStyleBox.style.border = "none";
