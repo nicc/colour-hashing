@@ -102,6 +102,16 @@ function clearSequence() {
 }
 
 function doTheThing() {
+    let textInput = document.getElementById('textInput').value.trim();
+    let inputStyleBox = document.getElementById('inputStyleBox');
+
+    if (textInput === "") {
+        inputStyleBox.style.border = "1px solid red";
+        return;
+    } else {
+        inputStyleBox.style.border = "none";
+    }
+
     clearSequence();
     stepThroughColours();
     intervalId = setInterval(stepThroughColours, interval);
