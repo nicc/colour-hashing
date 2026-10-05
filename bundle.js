@@ -19888,11 +19888,14 @@ function moarBits() {
 function popColour() {
   moarBits();
   if (bitLength < nBitsPerColour) return null;
-  let colourMask = (1n << nBitsPerColour) - 1n;
-  let colourBits = bitQueue >> bitLength - nBitsPerColour & colourMask;
+  let hexDigits = [];
+  for (let i = 0n; i < 6n; i++) {
+    let nibble = bitQueue >> bitLength - 4n - i * 4n & 0xFn;
+    hexDigits.push(nibble.toString(16));
+  }
   bitQueue &= (1n << bitLength - nBitsPerColour) - 1n;
   bitLength -= nBitsPerColour;
-  return "#" + colourBits.toString(16).padStart(6, "0");
+  return "#" + hexDigits.join("");
 }
 function recurseHash() {
   let textInput = document.getElementById("textInput").value.trim();

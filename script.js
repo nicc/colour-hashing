@@ -3,7 +3,7 @@ import pkg from 'canvas';
 const { createCanvas } = pkg;
 import { writeFile } from 'fs/promises';
 
-const names = ["Bob", "Alice"];
+const names = ["Nic Young"];
 
 async function generateColourBands(hexValues, name, width = 600, height = 100) {
     const outputPath = './pngs/'+name+'.png';
@@ -35,6 +35,8 @@ function hexRecursiveHashes(acc, chunkIndex, input) {
         let rightShift = chunkIndex * numBits;
         let chunk = ((1n << numBits) - 1n) & (input >> rightShift);
 
+        console.log("Extracted 4-bit chunks:", chunk.toString(2).padStart(4, '0'));
+        
         return hexTheHash([...acc, chunk.toString(16)], chunkIndex+1n, input);
     } else { // recur on a hash of the hash
         return hexTheHash(acc, 0n, Hash.hash([Field(input)]).toBigInt());
@@ -69,4 +71,5 @@ function toHexColourStrings(arr) {
 }
 
 names.forEach(hexThatPerson);
+
 

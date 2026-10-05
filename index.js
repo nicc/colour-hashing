@@ -27,12 +27,18 @@ function popColour() {
 
     if (bitLength < nBitsPerColour) return null;
 
-    let colourMask = (1n << nBitsPerColour) - 1n; // 24 bit mask
-    let colourBits = (bitQueue >> (bitLength - nBitsPerColour)) & colourMask; // take first 24 bits
+    let hexDigits = [];
+    for (let i = 0n; i < 6n; i++) {
+        let nibble = (bitQueue >> ((bitLength - 4n) - (i * 4n))) & 0xFn;
+        hexDigits.push(nibble.toString(16));
+    }
+
     bitQueue &= (1n << (bitLength - nBitsPerColour)) - 1n; // drop first 24 bits
     bitLength -= nBitsPerColour;
-
-    return '#'+colourBits.toString(16).padStart(6, '0'); // hex colour code
+    
+    // console.log("Extracted 24 bits (before hex):", colourBits.toString(2).padStart(24, '0'));
+    
+    return '#'+hexDigits.join('');
 }
 
 function recurseHash() {
@@ -48,6 +54,7 @@ function recurseHash() {
         hash = Hash.hash([Field(hash)]).toBigInt();
     }
 
+    
     return hash;
 }
 
